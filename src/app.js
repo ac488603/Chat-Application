@@ -6,7 +6,13 @@ const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
-io.on('connection', () => console.log('New Socket Connected'))
+let count = 0;
+io.on('connection', (socket) => {
+    socket.on('click', () => {
+        count = count + 1;
+        io.emit('update', count);
+    })
+} )
 
 app.use(express.static('public'))
 
