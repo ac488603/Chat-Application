@@ -7,10 +7,13 @@ const server = http.createServer(app)
 const io = socketio(server)
 
 io.on('connection', (socket) => {
-    socket.emit('update')
+    socket.emit('update', 'Welcome to the Chat!')
+    socket.broadcast.emit('update',  'A new user has joined!')
     socket.on('sendMessage', (message) => {
         io.emit('update', message)
-        console.log(message)
+    })
+    socket.on('disconnect', () => {
+        io.emit('update', 'A user has left.')
     })
 } )
 
