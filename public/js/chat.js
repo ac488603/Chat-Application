@@ -1,12 +1,19 @@
 const socket = io();
+const chat = document.getElementById('chatfeed')
+const input = document.getElementById('input')
+const form = document.getElementById('form')
 
-const button = document.getElementById('abut');
-const numberDisplay = document.getElementById('nd');
 
-socket.on('update', (value) => {
-    numberDisplay.innerHTML = value;
+socket.on('update', (message) => {
+    console.log(message)
+    if(message!== undefined){
+        let li = document.createElement('li')
+        li.innerHTML = message
+        chat.appendChild(li)
+    }
 })
 
-button.addEventListener('click',() => {
-    socket.emit('click')
+form.addEventListener('submit',(e) => {
+    e.preventDefault();
+    socket.emit('sendMessage', input.value)
 })
