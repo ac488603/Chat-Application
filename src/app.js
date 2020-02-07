@@ -15,7 +15,12 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         io.emit('update', 'A user has left.')
     })
-} )
+    socket.on('sendLocation', (position) => {
+        io.emit('update', position)
+    })
+})
+
+
 
 app.use(express.static('public'))
 
