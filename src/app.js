@@ -15,8 +15,10 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         io.emit('update', 'A user has left.')
     })
-    socket.on('sendLocation', (position) => {
-        io.emit('update', position)
+    socket.on('sendLocation', (position, callback) => {
+           const mapLink = `https://google.com/maps?q=${position.lat},${position.long}`
+           callback()
+        io.emit('update',mapLink )
     })
 })
 

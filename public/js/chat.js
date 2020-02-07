@@ -12,6 +12,7 @@ socket.on('update', (message) => {
     }
 })
 
+
 //waits for user to push submit
 //when user hit submit the message is sent to all clients
 form.addEventListener('submit',(e) => {
@@ -24,7 +25,9 @@ document.querySelector('#send-location').addEventListener('click',()=>{
     if(!navigator.geolocation)
         return alert("Geolocation is not supported by your browser")
     navigator.geolocation.getCurrentPosition( position =>{
-        socket.emit('sendLocation', {lat:position.coords.latitude, long:position.coords.longitude})
+        socket.emit('sendLocation', {lat:position.coords.latitude, long:position.coords.longitude}, _ => {
+            console.log('Location Received.')
+        })
     }, error => {
         console.log(error)
     })
