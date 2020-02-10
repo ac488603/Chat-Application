@@ -10,16 +10,22 @@ const messageTemplate = document.getElementById('message-template').innerHTML
 
 
 //renders message to screen
-socket.on('update', (message) => {
-    if (message !== undefined) {
-        const html = Mustache.render(messageTemplate, {message})
+socket.on('update', (data) => {
+    if (data.text !== undefined) {
+        const html = Mustache.render(messageTemplate, {
+            message: data.text,
+            createdAt : moment(data.createdAt).format('h:mm a')
+        })
         chat.insertAdjacentHTML('beforeend', html)
     }
 })
 
-socket.on('showLocation', (link) => {
-    const html = Mustache.render(locTemplate, {url:link})
-    chat.insertAdjacentHTML('beforeend',html)
+socket.on('showLocation', (data) => {
+    const html = Mustache.render(locTemplate, {
+        url: data.text,
+        createdAt: moment(data.createdAt).format('h:mm a')
+    })
+    chat.insertAdjacentHTML('beforeend', html)
 })
 
 //waits for user to push submit
@@ -27,7 +33,7 @@ socket.on('showLocation', (link) => {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    if(input.value !== '')
+    if (input.value !== '')
         socket.emit('sendMessage', input.value)
 })
 
