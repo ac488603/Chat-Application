@@ -10,12 +10,23 @@
 
 <body>
     <h1>simple chat</h1>
-    <ul id="chatfeed"></ul>
+    <div id="chatfeed"></div>
+
     <form action="" id="form">
         <input type="text" id="input">
-        <button>send</button>
+        <button >send</button>
     </form>
     <button id="send-location">Send Location</button>
+
+    <script type="text/html" id="message-template">
+        <p> {{message}} </p>
+    </script>
+
+    <script type="text/html" id="location-link-template">
+        <a href="{{url}}">View Location</a>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/chat.js"></script>
 </body>

@@ -4,12 +4,16 @@ const input = document.getElementById('input')
 const form = document.getElementById('form')
 const sendLoc = document.getElementById('send-location')
 
+//templates
+const LocTemplate = document.getElementById('location-link-template').innerHTML
+const messageTemplate = document.getElementById('message-template').innerHTML
+
+
 //renders message to screen
 socket.on('update', (message) => {
     if (message !== undefined) {
-        let li = document.createElement('li')
-        li.innerHTML = message
-        chat.appendChild(li)
+        const html = Mustache.render(messageTemplate, {message})
+        chat.insertAdjacentHTML('beforeend', html)
     }
 })
 
