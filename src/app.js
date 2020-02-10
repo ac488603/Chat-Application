@@ -1,7 +1,7 @@
 const express = require('express')
 const socketio = require('socket.io')
 const http = require('http')
-const im =  require('./utils/message')
+const im = require('./utils/message')
 
 const app = express()
 const server = http.createServer(app)
