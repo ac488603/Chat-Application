@@ -1,41 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simple Chat</title>
-    <link href='https://css.gg/list.css' rel='stylesheet'>
-    <link rel="icon" href="./img/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
-    <h1>
-        <i class="gg-list"></i> <span>Simple Chat</span> 
-    </h1>
-    <div id="chatfeed"></div>
-
-    <form action="" id="form">
-        <input type="text" id="input">
-        <button>send</button>
-    </form>
-    <button id="send-location">Send Location</button>
-
-    <script type="text/html" id="message-template">
-        <p> {{createdAt}} - {{message}} </p>
-    </script>
-
-    <script type="text/html" id="location-link-template">
-        <p>
-            {{createdAt}} - <a href="{{url}}" target="_blank">View Location</a>
-        </p>
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/chat.js"></script>
+    <div class="centered-form">
+        <div class="centered-form__box">
+            <h1> Join Now</h1>
+            <form action="./chat.html">
+                <label for="username">Display Name</label>
+                <input type="text" name="username" required>
+                <label for="room">Room</label>
+                <input type="text" name="room" required>
+                <button>Submit</button>
+            </form>
+        </div>
+    </div>
 </body>
-
 </html>
