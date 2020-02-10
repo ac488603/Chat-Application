@@ -5,7 +5,7 @@ const form = document.getElementById('form')
 const sendLoc = document.getElementById('send-location')
 
 //templates
-const LocTemplate = document.getElementById('location-link-template').innerHTML
+const locTemplate = document.getElementById('location-link-template').innerHTML
 const messageTemplate = document.getElementById('message-template').innerHTML
 
 
@@ -18,10 +18,8 @@ socket.on('update', (message) => {
 })
 
 socket.on('showLocation', (link) => {
-    let anchor = document.createElement('a')
-    anchor.setAttribute('href', link)
-    anchor.innerHTML = 'view location'
-    chat.appendChild(anchor)
+    const html = Mustache.render(locTemplate, {url:link})
+    chat.insertAdjacentHTML('beforeend',html)
 })
 
 //waits for user to push submit
