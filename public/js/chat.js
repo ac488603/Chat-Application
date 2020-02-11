@@ -1,4 +1,6 @@
 const socket = io();
+
+//elements
 const chat = document.getElementById('chatfeed')
 const input = document.getElementById('input')
 const form = document.getElementById('form')
@@ -8,6 +10,9 @@ const sendLoc = document.getElementById('send-location')
 const locTemplate = document.getElementById('location-link-template').innerHTML
 const messageTemplate = document.getElementById('message-template').innerHTML
 
+//options
+//option ignoreQueryPrefix removes the question mark
+const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix : true})
 
 //renders message to screen
 socket.on('update', (data) => {
@@ -35,6 +40,8 @@ form.addEventListener('submit', (e) => {
 
     if (input.value !== '')
         socket.emit('sendMessage', input.value)
+    
+    input.value = ''
 })
 
 
@@ -54,3 +61,5 @@ document.querySelector('#send-location').addEventListener('click', () => {
         console.log(error)
     })
 })
+
+socket.emit('joinRoom', {username, room} )

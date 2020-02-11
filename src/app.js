@@ -9,11 +9,16 @@ const io = socketio(server)
 
 
 io.on('connection', (socket) => {
-    socket.emit('update', im.generate('Welcome to the Chat!'))
-    socket.broadcast.emit('update', im.generate('A new user has joined.'))
     socket.on('sendMessage', (message) => {
         io.emit('update', im.generate(message))
     })
+
+    socket.on('joinRoom', ({username, room}) => {
+        socket.join(room)
+        socket.emit('update', im.generate('Welcome to the Chat!'))
+        socket.broadcast.to(room).emit('update', im.generate(`${username} has joined.`))
+    })    
+
     socket.on('disconnect', () => {
         io.emit('update', im.generate('A user has left.'))
     })
@@ -24,8 +29,6 @@ io.on('connection', (socket) => {
         io.emit('showLocation', im.generate(mapLink))
     })
 })
-
-
 
 app.use(express.static('public'))
 
