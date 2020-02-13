@@ -1,6 +1,6 @@
 const users = []
 
-const addUsers = ({
+const addUser = ({
     id,
     username,
     room
@@ -39,7 +39,7 @@ const addUsers = ({
     }
 }
 
-const removeUsers = (id) => {
+const removeUser = (id) => {
     const index = users.findIndex((user) => {
         return user.id == id
     })
@@ -50,7 +50,7 @@ const removeUsers = (id) => {
 
 const getUser = (id) => {
     return users.find(user => {
-        return user.id = id
+        return user.id === id
     })
 }
 
@@ -62,6 +62,6 @@ const getUsersInRoom = (room) => {
 module.exports = {
     getUser,
     getUsersInRoom,
-    removeUsers,
-    addUsers
+    removeUser,
+    addUser
 }

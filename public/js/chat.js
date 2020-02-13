@@ -12,14 +12,14 @@ const messageTemplate = document.getElementById('message-template').innerHTML
 
 //options
 //option ignoreQueryPrefix removes the question mark
-const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix : true})
+const {username, room } = Qs.parse(location.search, {ignoreQueryPrefix: true})
 
 //renders message to screen
 socket.on('update', (data) => {
     if (data.text !== undefined) {
         const html = Mustache.render(messageTemplate, {
             message: data.text,
-            createdAt : moment(data.createdAt).format('h:mm a')
+            createdAt: moment(data.createdAt).format('h:mm a')
         })
         chat.insertAdjacentHTML('beforeend', html)
     }
@@ -40,7 +40,7 @@ form.addEventListener('submit', (e) => {
 
     if (input.value !== '')
         socket.emit('sendMessage', input.value)
-    
+
     input.value = ''
 })
 
@@ -58,8 +58,17 @@ document.querySelector('#send-location').addEventListener('click', () => {
             sendLoc.removeAttribute('disabled')
         })
     }, error => {
-        console.log(error)
+        alert(error)
     })
 })
 
-socket.emit('joinRoom', {username, room} )
+socket.emit('joinRoom', {
+    username,
+    room
+},  error => {
+    if( error ) {
+        alert(error)
+        location.href = "/" // redirect to home page
+    }
+
+})
