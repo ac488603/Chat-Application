@@ -14,6 +14,24 @@ const sidebarTemplate = document.getElementById('sidebar-template').innerHTML
 //option ignoreQueryPrefix removes the question mark
 const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix: true})
 
+const autoscroll = () => {
+    const $newMessage = chat.lastElementChild
+    const messageStyles = getComputedStyle($newMessage)
+    
+    const $newMessageheight = $newMessage.offsetHeight + parseInt(messageStyles.marginBottom) // height of element
+    const visibleheight =  $newMessage.offsetHeight
+    
+    //height of message container
+    const containerHeight = chat.scrollHeight
+
+    //how far have I scrolled?
+    const scrollOffset = chat.scrollTop + visibleheight
+
+    if(containerHeight - $newMessageheight <= scrollOffset){
+        chat.scrollTop = chat.scrollHeight
+    }
+
+}
 //renders message to screen
 socket.on('update', (data) => {
     if (data.text !== undefined) {
@@ -23,6 +41,7 @@ socket.on('update', (data) => {
             createdAt: moment(data.createdAt).format('h:mm a')
         })
         chat.insertAdjacentHTML('beforeend', html)
+        autoscroll()
     }
 })
 
@@ -33,6 +52,7 @@ socket.on('showLocation', (data) => {
         createdAt: moment(data.createdAt).format('h:mm a')
     })
     chat.insertAdjacentHTML('beforeend', html)
+    autoscroll()
 })
 
 //waits for user to push submit
