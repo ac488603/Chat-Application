@@ -13,11 +13,8 @@
 <body>
 
     <div class="chat">
-        <div class="chat__sidebar">
-            <i class="gg-list"></i>
-            <h1>
-                Simple Chat
-            </h1>
+        <div id="sidebar" class="chat__sidebar">
+ 
         </div>
 
         <div class="chat__main">
@@ -26,7 +23,7 @@
 
             <div class="compose">
                 <form action="" id="form">
-                    <input type="text" id="input">
+                    <input type="text" id="input" autocomplete="off" required>
                     <button>send</button>
                 </form>
                 <button id="send-location">Send Location</button>
@@ -50,6 +47,15 @@
         </p>
     </script>
 
+    <script type="text/html" id="sidebar-template">
+        <h2 class="room-title"> {{room}}</h2>
+        <h3 class="list-title"></h3>
+        <ul class="users">
+            {{#users}}
+                <li>{{username}}</li>
+            {{/users}}
+        </ul>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.1/qs.min.js"></script>

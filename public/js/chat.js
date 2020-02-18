@@ -9,7 +9,7 @@ const sendLoc = document.getElementById('send-location')
 //templates
 const locTemplate = document.getElementById('location-link-template').innerHTML
 const messageTemplate = document.getElementById('message-template').innerHTML
-
+const sidebarTemplate = document.getElementById('sidebar-template').innerHTML
 //options
 //option ignoreQueryPrefix removes the question mark
 const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix: true})
@@ -73,4 +73,12 @@ socket.emit('joinRoom', {
         location.href = "/" // redirect to home page
     }
 
+})
+
+socket.on('roomData', ({room, users}) => {
+    const html = Mustache.render(sidebarTemplate, {
+        room,
+        users
+    })
+    document.getElementById('sidebar').innerHTML = html
 })
