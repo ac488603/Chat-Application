@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simple Chat</title>
-    <link href='https://css.gg/list.css' rel='stylesheet'>
     <link rel="icon" href="./img/favicon.png">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -38,13 +37,13 @@
 
     <script type="text/html" id="message-template">
         <div class="message">
-            <p> <span class="message__name">some user</span> <span class="" message__meta">{{createdAt}}</span></p>
+            <p> <span class="message__name">{{username}}</span> <span class="message__meta">{{createdAt}}</span></p>
             <p> {{message}} </p>
         </div>
     </script>
 
     <script type="text/html" id="location-link-template">
-        <p> <span class="message__name">some user</span> <span class="" message__meta">{{createdAt}}</span></p>
+        <p> <span class="message__name">{{username}}</span> <span class="message__meta">{{createdAt}}</span></p>
 
         <p>
             <a href="{{url}}" target="_blank">View Location</a>

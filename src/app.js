@@ -13,7 +13,7 @@ io.on('connection', (socket) => {
     socket.on('sendMessage', (message) => {
         const user = getUser(socket.id)
         console.log(user);
-        io.to(user.room).emit('update', im.generate(message))
+        io.to(user.room).emit('update', im.generate(user.username, message))
     })
 
     socket.on('joinRoom', ({username, room}, callback) => {
@@ -24,8 +24,8 @@ io.on('connection', (socket) => {
 
         socket.join(user.room)
 
-        socket.emit('update', im.generate('Welcome to the Chat!'))
-        socket.broadcast.to(user.room).emit('update', im.generate(`${user.username} has joined.`))
+        socket.emit('update', im.generate('Admin', `Welcome to the ${user.room} chatroom!`))
+        socket.broadcast.to(user.room).emit('update',im.generate('Admin',`${user.username} has joined.`))
 
         callback()
     })    
@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         const user = removeUser(socket.id)
         if(user){
-            io.to(user.room).emit('update', im.generate(`${user.username} has left.`))
+            io.to(user.room).emit('update', im.generate('Admin',`${user.username} has left.`))
         }
     })
 
@@ -42,7 +42,8 @@ io.on('connection', (socket) => {
         const user  = getUser(socket.id)
         if(user){
             const mapLink = `https://google.com/maps?q=${position.lat},${position.long}`
-            io.to(user.room).emit('showLocation', im.generate(mapLink))
+            io.to(user.room).emit('showLocation', im.generate(user.username,mapLink))
+            
             callback()
         }
         callback()

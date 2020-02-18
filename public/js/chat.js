@@ -12,12 +12,13 @@ const messageTemplate = document.getElementById('message-template').innerHTML
 
 //options
 //option ignoreQueryPrefix removes the question mark
-const {username, room } = Qs.parse(location.search, {ignoreQueryPrefix: true})
+const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix: true})
 
 //renders message to screen
 socket.on('update', (data) => {
     if (data.text !== undefined) {
         const html = Mustache.render(messageTemplate, {
+            username : data.username,
             message: data.text,
             createdAt: moment(data.createdAt).format('h:mm a')
         })
@@ -27,6 +28,7 @@ socket.on('update', (data) => {
 
 socket.on('showLocation', (data) => {
     const html = Mustache.render(locTemplate, {
+        username: data.username,
         url: data.text,
         createdAt: moment(data.createdAt).format('h:mm a')
     })
