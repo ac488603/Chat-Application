@@ -19,7 +19,7 @@ const autoscroll = () => {
     const messageStyles = getComputedStyle($newMessage)
     
     const $newMessageheight = $newMessage.offsetHeight + parseInt(messageStyles.marginBottom) // height of element
-    const visibleheight =  $newMessage.offsetHeight
+    const visibleheight =  chat.offsetHeight
     
     //height of message container
     const containerHeight = chat.scrollHeight
